@@ -89,19 +89,49 @@ func findMiddle(head *ListNode) *ListNode {
 
 	return slow
 }
+
+func removeElements(head *ListNode, val int) *ListNode {
+	prev := &ListNode{
+		Val:  0,
+		Next: nil,
+	}
+	prevPtr := prev
+
+	// iterate through all nodes
+	for head != nil {
+
+		// remove all nodes with val == curr.Val
+		if head.Val != val {
+			prevPtr.Next = head
+			prevPtr = prevPtr.Next
+		}
+
+		// iterate
+		head = head.Next
+	}
+	return prev.Next
+}
+
 func main() {
 	one := ListNode{
 		Val: 6,
 	}
 	two := ListNode{Val: 23}
 	three := ListNode{Val: 35}
-
+	four := ListNode{Val: 6}
+	five := ListNode{Val: 6}
 	one.Next = &two
 	two.Next = &three
-	Traverse(&one)
-	Traverse(&one)
-	Traverse(&one)
-	fmt.Println("Middle of LinkedList ", findMiddle(&one).Val)
+	three.Next = &four
+	four.Next = &five
+	// Traverse(&one)
+	// Traverse(&one)
+	// Traverse(&one)
+
+	testa := removeElements(&one, 6)
+	Traverse(testa)
+
+	// fmt.Println("Middle of LinkedList ", findMiddle(&one).Val)
 	// Traverse(&one)
 	// k := deleteDuplicates(&one)
 	// Traverse(k)

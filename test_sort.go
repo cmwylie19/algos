@@ -5,35 +5,23 @@ import (
 )
 
 type ListNode struct {
-	Val  int
+	Val  interface{}
 	Next *ListNode
 }
 
-func createSortedLL(arr []int) *ListNode {
-
-	head := &ListNode{}
-	var prev *ListNode
-	curr := head
-
-	if len(arr) == 0 {
-		return head
-	}
-
-	// create the first element
-	if curr.Next == nil {
-		nextNode := &ListNode{Val: arr[0]}
-		head.Next = nextNode
+func (head *ListNode) OnlyOdds() *ListNode {
+	curr, odds := head, &ListNode{}
+	curr_odds := odds
+	// Print message on odds
+	for curr != nil {
+		if curr.Val.(int)%2 != 0 {
+			val := &ListNode{Val: curr.Val}
+			curr_odds.Next = val
+			curr_odds = curr_odds.Next
+		}
 		curr = curr.Next
 	}
-
-	//
-	for i := 1; i < len(arr); i++ {
-		if curr.Val < arr[i] {
-			// must use prev
-		}
-	}
-
-	return head.Next
+	return odds.Next
 }
 func createLL(arr []int) *ListNode {
 	head := &ListNode{Val: 0}
@@ -62,6 +50,14 @@ func bubbleSort(arr []int) []int {
 	return arr
 }
 
+func Traverse(head *ListNode) {
+
+	for head != nil {
+		fmt.Printf("%d ", head.Val)
+		head = head.Next
+	}
+}
+
 func main() {
 	arr := []int{9, 3, 2, 6, 89, 23, 97, 34, 1, 2}
 	fmt.Println("Sorting")
@@ -72,9 +68,12 @@ func main() {
 	fmt.Println("\nLinked List")
 
 	head := createLL(sorted)
-
+	curr := head
 	for head != nil {
 		fmt.Printf("%d ", head.Val)
 		head = head.Next
 	}
+
+	fmt.Println("\nOnly Odds")
+	Traverse(curr.OnlyOdds())
 }

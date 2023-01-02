@@ -9,6 +9,21 @@ type ListNode struct {
 	Next *ListNode
 }
 
+func (head *ListNode) OnlyEvens() *ListNode {
+	curr, evens := head, &ListNode{}
+	curr_evens := evens
+	for curr != nil {
+		if curr.Val.(int)%2 == 0 {
+			val := &ListNode{Val: curr.Val}
+			curr_evens.Next = val
+			curr_evens = curr_evens.Next
+		}
+		curr = curr.Next
+	}
+
+	return evens.Next
+}
+
 func (head *ListNode) OnlyOdds() *ListNode {
 	curr, odds := head, &ListNode{}
 	curr_odds := odds
@@ -50,14 +65,59 @@ func bubbleSort(arr []int) []int {
 	return arr
 }
 
-func Traverse(head *ListNode) {
+func Remove(head *ListNode, val int) *ListNode {
+	var prev *ListNode
 
-	for head != nil {
-		fmt.Printf("%d ", head.Val)
-		head = head.Next
+	curr := head
+
+	for curr != nil {
+		if curr.Val == val {
+			if prev == nil {
+				head = curr.Next
+			} else {
+				prev.Next = curr.Next
+			}
+		} else {
+			prev = curr
+		}
+		curr = curr.Next
+
 	}
-}
 
+	return head
+}
+func Traverse(head *ListNode) *ListNode {
+	curr := head
+	for curr != nil {
+		fmt.Printf("%d ", curr.Val)
+		curr = curr.Next
+	}
+
+	return head
+
+}
+func (head *ListNode) Reverse() *ListNode {
+	var prev *ListNode
+	curr := head
+	for curr != nil {
+		nextNode := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = nextNode
+	}
+
+	return prev
+}
+func (head *ListNode) GetSum() int {
+	sum, curr := 0, head
+
+	for curr != nil {
+		sum += curr.Val.(int)
+		curr = curr.Next
+	}
+
+	return sum
+}
 func main() {
 	arr := []int{9, 3, 2, 6, 89, 23, 97, 34, 1, 2}
 	fmt.Println("Sorting")
@@ -74,6 +134,26 @@ func main() {
 		head = head.Next
 	}
 
-	fmt.Println("\nOnly Odds")
-	Traverse(curr.OnlyOdds())
+	fmt.Println("\nOnly Evens")
+	evens := Traverse(curr.OnlyEvens())
+	fmt.Println("\nReverse")
+	reversed_evens := Traverse(evens.Reverse())
+	fmt.Println("\nGetSum: ")
+	fmt.Printf("sum is %d\n", reversed_evens.GetSum())
+
+	one := &ListNode{Val: 99}
+	two := &ListNode{Val: 93}
+	three := &ListNode{Val: 44}
+	four := &ListNode{Val: 45}
+	five := &ListNode{Val: 99}
+
+	one.Next = two
+	two.Next = three
+	three.Next = four
+	four.Next = five
+
+	t := Remove(one, 99)
+	Traverse(t)
+	// fmt.Println("\nOnly Odds")
+	// Traverse(curr.OnlyOdds())
 }

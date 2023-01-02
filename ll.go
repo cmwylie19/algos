@@ -30,6 +30,7 @@ func Middle(head *node) interface{} {
 	}
 	return slow.value
 }
+
 func main() {
 
 	one := &node{value: 1}
@@ -37,9 +38,9 @@ func main() {
 	three := &node{value: 3}
 	one.next = two
 	two.next = three
-	three.next = nil
+
 	Traverse(one)
-	print(Middle(one))
+	// print(Middle(one))
 
 	// ll := &LinkedList{head: one, tail: three, size: 3}
 

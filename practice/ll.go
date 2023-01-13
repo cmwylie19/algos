@@ -37,6 +37,15 @@ func RecursiveTraverse(head *Node) {
 		RecursiveTraverse(head.Next)
 	}
 }
+func Count(start *int, head *Node) int {
+	fmt.Println("Called ", start)
+	if head.Next != nil {
+		*start += 1
+		Count(start, head.Next)
+	}
+	return *start + 1
+
+}
 func (head *Node) Add(node *Node) {
 	curr := head
 
@@ -70,6 +79,9 @@ func main() {
 	fmt.Println("Recursive Traverse")
 	t := &node
 	RecursiveTraverse(*t)
+	fmt.Println("Count")
+	va := 0
+	fmt.Println(Count(&va, *t))
 	// node.Remove()
 	// node.Remove()
 

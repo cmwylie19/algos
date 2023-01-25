@@ -18,6 +18,25 @@ func PreorderDFS(node *Node) {
 	PreorderDFS(node.Right)
 
 }
+func maxDepthIterate(node *Node) int {
+	copyNode := node
+	left, right := 1, 1
+	for node.Left != nil {
+		node = node.Left
+		left += 1
+	}
+
+	for copyNode.Right != nil {
+		copyNode = copyNode.Right
+		right += 1
+	}
+
+	if right > left {
+		return right
+	}
+
+	return left
+}
 func maxDepth(node *Node) int {
 	if node == nil {
 		return 0
@@ -50,6 +69,6 @@ func main() {
 	f.Left = ff
 
 	PreorderDFS(root)
-	fmt.Println("Max depth ", maxDepth(root))
+	fmt.Println("Max depth ", maxDepthIterate(root))
 
 }

@@ -41,8 +41,11 @@ func maxDepth(node *Node) int {
 	if node == nil {
 		return 0
 	}
+	left := maxDepth(node.Left)
+	right := maxDepth(node.Right)
+	fmt.Println("Val is ", node.Val)
 
-	return 1 + Max(maxDepth(node.Left), maxDepth(node.Right))
+	return 1 + Max(left, right)
 }
 func Max(x int, y int) int {
 	if x > y {
@@ -59,6 +62,14 @@ func main() {
 	first := &Node{Val: "01"}
 	second := &Node{Val: 2}
 	three := &Node{Val: 3.0}
+	four := &Node{Val: 90210}
+	f1 := &Node{Val: 0}
+	f2 := &Node{Val: 0}
+	f3 := &Node{Val: 0}
+	f4 := &Node{Val: 0}
+	f5 := &Node{Val: 0}
+	f6 := &Node{Val: 0}
+	f7 := &Node{Val: 99}
 	f := &Node{Val: 99}
 	ff := &Node{Val: 101}
 
@@ -66,9 +77,17 @@ func main() {
 	root.Right = second
 	first.Left = three
 	three.Left = f
+	three.Right = four
+	four.Left = f1
+	f1.Left = f2
+	f2.Left = f3
+	f3.Left = f4
+	f4.Left = f5
+	f5.Left = f6
+	f6.Left = f7
 	f.Left = ff
 
 	PreorderDFS(root)
-	fmt.Println("Max depth ", maxDepthIterate(root))
+	fmt.Println("Max depth ", maxDepth(root))
 
 }
